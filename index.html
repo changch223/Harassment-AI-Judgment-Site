@@ -58,14 +58,17 @@
   </style>
 </head>
 <body>
+  <!-- ====== Page 1: Upload & Input ====== -->
   <div class="container" id="page1">
     <h1>ハラスメントチェック</h1>
-    <p>スクリーンショットまたは会話内容を入力してください：</p>
-    <input type="file" id="imageInput" accept="image/*"><br>
+    <p>スクリーンショット、画像や会話内容を入力してください：</p>
+    <!-- multiple で複数枚アップ可能、後端も images: List[UploadFile] 対応 -->
+    <input type="file" id="imageInput" accept="image/*" multiple><br>
     <textarea id="textInput" placeholder="ここに会話を貼り付けてください"></textarea>
     <button onclick="analyze()">分析開始</button>
   </div>
 
+  <!-- ====== Page 2: Result ====== -->
   <div class="container" id="page2" style="display: none">
     <h2>分析結果</h2>
     <div id="resultContainer"></div>
@@ -73,46 +76,78 @@
   </div>
 
   <script>
-    function analyze() {
+    async function analyze() {
+      // 1) 取得ユーザー入力
       const text = document.getElementById('textInput').value;
-      const image = document.getElementById('imageInput').files[0];
+      const files = document.getElementById('imageInput').files; // 複数枚
 
+      // 2) FormData に詰める
       const formData = new FormData();
       formData.append('text', text);
-      if (image) formData.append('image', image);
+      for (let i = 0; i < files.length; i++) {
+        formData.append('images', files[i]); // 画像複数対応
+      }
 
-      fetch('https://your-cloud-run-url/check_harassment', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.json())
-      .then(data => showResult(data))
-      .catch(err => alert("エラーが発生しました: " + err));
+      // 3) fetch POST
+      try {
+        const res = await fetch('https://your-cloud-run-url/check_harassment', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        showResult(data);
+      } catch (err) {
+        alert("エラーが発生しました: " + err);
+      }
     }
 
     function showResult(data) {
+      // page1非表示, page2表示
       document.getElementById('page1').style.display = 'none';
       document.getElementById('page2').style.display = 'block';
+
       const container = document.getElementById('resultContainer');
       container.innerHTML = '';
 
-      const categories = [
-        "パワーハラスメント（パワハラ）",
+      // 4) Python 返却のキー (9項)
+      const harassmentKeys = [
+        "パワーハラスメント",
         "スメルハラスメント",
-        "カスタマーハラスメント（カスハラ）",
-        "ハラスメントハラスメント（ハラハラ）",
-        "マタニティハラスメント（マタハラ）",
-        "リモートハラスメント（リモハラ）",
-        "テクノロジーハラスメント（テクハラ）",
-        "セクシュアルハラスメント（セクハラ）",
-        "モラルハラスメント（モラハラ）"
+        "カスタマーハラスメント",
+        "ハラスメントハラスメント",
+        "マタニティハラスメント",
+        "リモートハラスメント",
+        "テクノロジーハラスメント",
+        "セクシュアルハラスメント",
+        "モラルハラスメント"
       ];
 
-      categories.forEach(key => {
-        const score = data[key] || 0;
-        const bar = `<div class='score-bar'><div class='score-bar-inner' style='width:${score}%;'></div></div>`;
-        container.innerHTML += `<div class='result-item'><strong>${key}</strong><br>${bar} <span>${score}点</span></div>`;
+      // 各キーごとにバー表示
+      harassmentKeys.forEach(key => {
+        const score = data[key] || 0; // データにない場合は0
+        const bar = `
+          <div class="score-bar">
+            <div class="score-bar-inner" style="width:${score}%"></div>
+          </div>
+        `;
+        container.innerHTML += `
+          <div class="result-item">
+            <strong>${key}</strong><br>
+            ${bar}
+            <span>${score}点</span>
+          </div>
+        `;
       });
+
+      // 5) 総合コメントを表示
+      if (data["総合コメント"]) {
+        container.innerHTML += `
+          <div class="result-item">
+            <strong>総合コメント</strong><br>
+            <p>${data["総合コメント"]}</p>
+          </div>
+        `;
+      }
     }
 
     function backToInput() {
