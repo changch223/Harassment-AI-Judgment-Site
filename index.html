@@ -199,6 +199,10 @@
   </div>
 
   <script>
+    // 前端 API 金鑰設定
+    const API_KEY_NAME = "X-API-Key";
+    const API_KEY = "Vanila20180417"; // 這裡設定你的 API 金鑰
+
     async function analyze() {
       // ローディング開始
       document.getElementById('loading').style.display = 'block';
@@ -215,12 +219,13 @@
         formData.append('images', files[i]);
       }
 
-      // 3) fetch POST で後端に送信
+      // 3) fetch POST で後端に送信（API 金鑰付き）
       try {
-        // ★ 後端のURLパスを正しく設定してください。以下は一例:
-        //    '/check_harassment' を末尾に付けるなど、実際のエンドポイントに合わせる。
         const res = await fetch('https://aiharajudge-731897587704.asia-northeast1.run.app/check_harassment', {
           method: 'POST',
+          headers: {
+            [API_KEY_NAME]: API_KEY
+          },
           body: formData
         });
         const data = await res.json();
@@ -242,7 +247,7 @@
       const container = document.getElementById('resultContainer');
       container.innerHTML = '';
 
-      // 4) Python 返却のキー (9項)
+      // Python 返却のキー (9項)
       const harassmentKeys = [
         "パワーハラスメント",
         "スメルハラスメント",
