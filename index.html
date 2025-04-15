@@ -23,8 +23,7 @@
     html, body {
       width: 100%;
       height: 100%;
-      /* 可以替換為你主題常用之字型，如 Noto Sans JP */
-      font-family: 'Noto Sans JP', sans-serif; 
+      font-family: 'Noto Sans JP', sans-serif; /* 可以替換為你主題常用之字型 */
       color: #333;
       background-color: #faf8f5; /* 更柔和的淡米白背景 */
       line-height: 1.6;
@@ -34,7 +33,10 @@
     .hero {
       width: 100%;
       padding: 80px 20px;
-      background: linear-gradient(120deg, #f2ede6, #faf8f5 70%);
+      background: linear-gradient(120deg, rgba(242,237,230,0.7), rgba(250,248,245,0.7)), url('./images/background.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
       text-align: center;
     }
     .hero h1 {
@@ -53,29 +55,7 @@
       line-height: 1.8;           /* 行距更舒適 */
       white-space: pre-line;      /* 若想保留HTML內的換行可使用 */
     }
-    /* 選用：Hero 內可放 Banner 圖
-    .hero img {
-      max-width: 300px;
-      width: 100%;
-      margin-top: 2rem;
-      opacity: 0.9;
-    } */
 
-    .hero {
-    width: 100%;
-    padding: 80px 20px;
-    background: linear-gradient(120deg, rgba(242,237,230,0.7), rgba(250,248,245,0.7)), url('./images/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    }
-    .hero-content {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 1rem 2rem;
-    border-radius: 6px;
-    }
     /* ======= 主內容卡片 ======= */
     .main-content {
       max-width: 900px;
@@ -101,7 +81,7 @@
     /* ======= 按鈕通用樣式 ======= */
     .btn {
       display: inline-block;
-      background: #24a59a;  /* 主色：青綠 (可依需求調整) */
+      background: #24a59a;  /* 主色：青綠 */
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -194,7 +174,7 @@
       border-radius: 8px;
       background: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      display: none; /* 初期隱藏，顯示分析結果時再切換 */
+      display: none; /* 初期隱藏 */
     }
     #page2 h2 {
       font-size: 1.4rem;
@@ -214,8 +194,26 @@
     }
     .score-bar-inner {
       height: 100%;
-      background-color: #24a59a; /* 跟按鈕同色，或可分別設定 */
+      background-color: #24a59a;
       transition: width 0.4s ease;
+    }
+
+    /* ======= Footer ======= */
+    .footer {
+      background: #f2ede6; /* 與你提供的截圖相近的淡米色 */
+      color: #333;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 2rem; /* 與上方內容間距 */
+    }
+    .footer a {
+      color: #333;
+      text-decoration: none;
+      margin: 0 0.7rem;
+    }
+    .footer a:hover {
+      text-decoration: underline;
     }
 
     /* ======= 響應式: 手機尺寸優化 ======= */
@@ -241,14 +239,14 @@
 </head>
 <body>
   <!-- ======= Hero / Banner 區塊 ======= -->
-  <section class="hero">  
-      <h1>ハラスメントチェック - AIが瞬時にジャッジ！</h1>
-      <p>
-        日常生活や職場の中で発生しがちなハラスメントの兆候を、AIで即時判定するWebアプリです。
-      </p>
-      <!-- 若需要 Banner 圖，可於此處插入 
-      <img src="your-banner-image.jpg" alt="AI Image">
-      -->
+  <section class="hero">
+    <h1>ハラスメントチェック - AIが瞬時にジャッジ！</h1>
+    <p>
+      日常生活や職場の中で発生しがちなハラスメントの兆候を、AIで即時判定するWebアプリです。
+    </p>
+    <!-- 若需要 Banner 圖，可於此處插入 
+    <img src="your-banner-image.jpg" alt="AI Image">
+    -->
   </section>
 
   <!-- ======= 主內容說明卡片 ======= -->
@@ -287,6 +285,19 @@
     <div id="resultContainer"></div>
     <button class="btn" onclick="backToInput()">戻る</button>
   </div>
+
+  <!-- ======= Footer 區塊 ======= -->
+  <footer class="footer">
+    <a href="https://aiharajudge.site/" target="_blank">トップページ</a> 
+    | 
+    <a href="https://aiharajudge.site/?page_id=8" target="_blank">運営者情報</a> 
+    | 
+    <a href="https://aiharajudge.site/?page_id=8" target="_blank">プライバシーポリシー</a> 
+    | 
+    <a href="https://aiharajudge.site/?page_id=7" target="_blank">利用規約／特定商取引法に基づく表記</a>
+    <br>
+    © 2025 ハラスメントチェック – AIが瞬時にジャッジ
+  </footer>
 
   <!-- ======= 後端呼叫邏輯 ======= -->
   <script>
