@@ -5,126 +5,174 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AIを用いてハラスメントの有無を瞬時に判定します。会話内容や画像を解析し、パワハラ・セクハラ等を総合判定します。より良い社会の実現に向け、誰もが気軽にハラスメントをチェックできるサービスです。">
+
   <title>ハラスメントチェック - AIが瞬時にジャッジ</title>
 
+  <!-- ★ 可選：如果想用 Google Fonts，請自行啟用 ★ -->
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet"> -->
+
   <style>
-    /* ======= 全体スタイル ======= */
-    body {
-      font-family: Arial, sans-serif;
+    /* ======= 全體 Reset & 基本字體設定 ======= */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      /* 可以替換為你主題常用之字型，如 Noto Sans JP */
+      font-family: 'Noto Sans JP', sans-serif; 
       color: #333;
-    }
-
-    /* ======= タイトルや見出し部分 ======= */
-    header {
-      background-color: #fff;
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    header h1 {
-      margin: 0.5rem 0 1rem;
-      font-size: 1.8rem;
-    }
-    header h2 {
-      margin-top: 0.5rem;
-      font-size: 1.2rem;
-      color: #666;
-    }
-
-    /* ======= メインコンテンツ ======= */
-    .main-content {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background-color: #faf8f5; /* 更柔和的淡米白背景 */
       line-height: 1.6;
     }
 
-    /* ======= フォームコンテナ ======= */
-    .container {
+    /* ======= 頂部 Banner (Hero) 區塊 ======= */
+    .hero {
+      width: 100%;
+      padding: 80px 20px;
+      background: linear-gradient(120deg, #f2ede6, #faf8f5 70%);
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.2rem;           /* 加大字體 */
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-weight: 900;           /* 調整為更粗的字重 */
+      line-height: 1.2;           /* 減少行距，讓標題更緊湊 */
+      text-shadow: 0 2px 4px rgba(0,0,0,0.15); /* 增加文字陰影使字更突出 */
+    }
+    .hero p {
+      color: #4d4d4d;
+      font-size: 1.2rem;          /* 稍微加大字體 */
       max-width: 600px;
-      margin: 1rem auto 0;
+      margin: 0 auto 2rem;        /* 適度增大與下方間距 */
+      line-height: 1.8;           /* 行距更舒適 */
+      white-space: pre-line;      /* 若想保留HTML內的換行可使用 */
+    }
+    /* 選用：Hero 內可放 Banner 圖
+    .hero img {
+      max-width: 300px;
+      width: 100%;
+      margin-top: 2rem;
+      opacity: 0.9;
+    } */
+
+    .hero {
+    width: 100%;
+    padding: 80px 20px;
+    background: linear-gradient(120deg, rgba(242,237,230,0.7), rgba(250,248,245,0.7)), url('./images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    }
+    .hero-content {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    }
+    /* ======= 主內容卡片 ======= */
+    .main-content {
+      max-width: 900px;
+      margin: -40px auto 2rem; /* 往上拉卡片以疊加到 Hero */
       background: #fff;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .main-content h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+    }
+    .main-content p {
+      margin-bottom: 1rem;
+      color: #555;
+      line-height: 1.7;
     }
 
+    /* ======= 按鈕通用樣式 ======= */
+    .btn {
+      display: inline-block;
+      background: #24a59a;  /* 主色：青綠 (可依需求調整) */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1e8f88;
+    }
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    /* ======= 分析區塊容器 ======= */
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .container h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      text-align: center;
+      color: #333;
+    }
     .form-group {
       margin-bottom: 1.5rem;
     }
     label {
       display: block;
       margin-bottom: 0.5rem;
-      font-weight: bold;
+      font-weight: 700;
+      color: #444;
+    }
+    input[type="file"], textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      color: #555;
     }
     input[type="file"] {
-      display: block;
-      margin-top: 0.5rem;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      margin-top: 0.5rem;
-      padding: 1rem;
-      font-size: 1rem;
-      box-sizing: border-box;
-      resize: vertical;
-    }
-
-    /* ======= ボタン ======= */
-    button {
-      margin-top: 1rem;
-      padding: 1rem;
-      font-size: 1rem;
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
       cursor: pointer;
     }
-    button:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      margin-top: 0.5rem;
     }
-
-    /* ======= 結果表示コンテナ ======= */
-    #page2 {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 2rem;
-      border-radius: 10px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .result-item {
-      margin-bottom: 1.5rem;
-    }
-
-    /* ======= スコアバー ======= */
-    .score-bar {
-      height: 20px;
-      background-color: #ddd;
-      border-radius: 5px;
-      overflow: hidden;
-      margin: 0.5rem 0;
-    }
-    .score-bar-inner {
-      height: 100%;
-      background-color: #4CAF50;
+    #analyzeBtn {
+      width: 100%;
+      margin-top: 0.5rem;
     }
 
     /* ======= ローディングスピナー ======= */
+    #loading {
+      text-align: center;
+      margin-top: 1rem;
+      display: none; /* 初期は非表示 */
+    }
     .loader {
       border: 4px solid #f3f3f3;
-      border-top: 4px solid #4CAF50;
+      border-top: 4px solid #24a59a;
       border-radius: 50%;
       width: 24px;
       height: 24px;
@@ -138,51 +186,93 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* ローディングテキスト */
-    #loading {
+    /* ======= 結果表示コンテナ ======= */
+    #page2 {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: none; /* 初期隱藏，顯示分析結果時再切換 */
+    }
+    #page2 h2 {
+      font-size: 1.4rem;
       text-align: center;
-      margin-top: 1rem;
-      display: none; /* 初期は非表示 */
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .result-item {
+      margin-bottom: 1.5rem;
+    }
+    .score-bar {
+      height: 20px;
+      background-color: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+    .score-bar-inner {
+      height: 100%;
+      background-color: #24a59a; /* 跟按鈕同色，或可分別設定 */
+      transition: width 0.4s ease;
+    }
+
+    /* ======= 響應式: 手機尺寸優化 ======= */
+    @media screen and (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .main-content {
+        margin: -20px auto 2rem;
+        padding: 1rem;
+      }
+      .main-content h2 {
+        font-size: 1.3rem;
+      }
+      .container, #page2 {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- ======= Hero / Banner 區塊 ======= -->
+  <section class="hero">  
+      <h1>ハラスメントチェック - AIが瞬時にジャッジ！</h1>
+      <p>
+        日常生活や職場の中で発生しがちなハラスメントの兆候を、AIで即時判定するWebアプリです。
+      </p>
+      <!-- 若需要 Banner 圖，可於此處插入 
+      <img src="your-banner-image.jpg" alt="AI Image">
+      -->
+  </section>
 
-  <!-- ======= ヘッダー・タイトル ======= -->
-  <header>
-    <h1>ハラスメントチェック - AIが瞬時にジャッジ</h1>
-    <h2>ハラスメントに悩むあなたへ</h2>
-  </header>
-
-  <!-- ======= サイト説明文（SEO 対策にも貢献） ======= -->
+  <!-- ======= 主內容說明卡片 ======= -->
   <div class="main-content">
+    <h2>ハラスメントの種類を瞬時に分類</h2>
     <p>
-      現代社会ではハラスメントが多発していますが、自分がハラスメントを受けているかどうか判断が難しい場面も多く、
-      また周囲に相談しにくい状況も少なくありません。
-    </p>
-    <p>
-      私たちは、そのような方々が気軽に、そして明確にハラスメントを判断できるサイトを開発しました。
-      このサイトでは、会話のキャプチャ画像やテキストをアップロードするだけで、
-      <strong>Googleの最先端AI</strong>がその内容を分析し、ハラスメントかどうかを瞬時にジャッジします。
-    </p>
-    <p>
-      私たちの目標は、このサイトを通じて誰もが安心して過ごせる、
-      より良い社会の実現に貢献することです。
+      「もしかしてこれってハラスメント？」と少しでも感じたら、上司や同僚に相談する前に
+      AIによる判定を試してみてください。短時間で、客観的かつ的確なアドバイスを得られることで、
+      相談しやすい環境づくりにも役立ちます。
     </p>
   </div>
 
   <!-- ======= 入力ページ (Page1) ======= -->
   <div class="container" id="page1">
-    <h2 style="text-align:center;">画像とテキストをアップロード</h2>
+    <h3>画像とテキストをアップロード</h3>
     <div class="form-group">
-      <label for="imageInput">スクリーンショットや画像：</label>
+      <label for="imageInput">スクリーンショットや画像:</label>
       <input type="file" id="imageInput" accept="image/*" multiple>
     </div>
     <div class="form-group">
       <label for="textInput">会話内容:</label>
       <textarea id="textInput" placeholder="ここに会話を貼り付けてください"></textarea>
     </div>
-    <button id="analyzeBtn" onclick="analyze()">分析開始</button>
+    <button class="btn" id="analyzeBtn" onclick="analyze()">分析開始</button>
 
     <!-- ローディング中の表示 -->
     <div id="loading">
@@ -192,12 +282,13 @@
   </div>
 
   <!-- ======= 結果ページ (Page2) ======= -->
-  <div id="page2" style="display: none;">
+  <div id="page2">
     <h2>分析結果</h2>
     <div id="resultContainer"></div>
-    <button onclick="backToInput()">戻る</button>
+    <button class="btn" onclick="backToInput()">戻る</button>
   </div>
 
+  <!-- ======= 後端呼叫邏輯 ======= -->
   <script>
     // 前端 API 金鑰設定
     const API_KEY_NAME = "X-API-Key";
