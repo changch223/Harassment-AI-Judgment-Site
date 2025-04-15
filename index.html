@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ハラスメントチェック</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-top: 1rem;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    input[type="file"] {
+      margin-top: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 1rem;
+      font-size: 1rem;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result-item {
+      margin-bottom: 1rem;
+    }
+    .score-bar {
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .score-bar-inner {
+      height: 100%;
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="page1">
+    <h1>ハラスメントチェック</h1>
+    <p>スクリーンショットまたは会話内容を入力してください：</p>
+    <input type="file" id="imageInput" accept="image/*"><br>
+    <textarea id="textInput" placeholder="ここに会話を貼り付けてください"></textarea>
+    <button onclick="analyze()">分析開始</button>
+  </div>
+
+  <div class="container" id="page2" style="display: none">
+    <h2>分析結果</h2>
+    <div id="resultContainer"></div>
+    <button onclick="backToInput()">戻る</button>
+  </div>
+
+  <script>
+    function analyze() {
+      const text = document.getElementById('textInput').value;
+      const image = document.getElementById('imageInput').files[0];
+
+      const formData = new FormData();
+      formData.append('text', text);
+      if (image) formData.append('image', image);
+
+      fetch('https://your-cloud-run-url/check_harassment', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => showResult(data))
+      .catch(err => alert("エラーが発生しました: " + err));
+    }
+
+    function showResult(data) {
+      document.getElementById('page1').style.display = 'none';
+      document.getElementById('page2').style.display = 'block';
+      const container = document.getElementById('resultContainer');
+      container.innerHTML = '';
+
+      const categories = [
+        "パワーハラスメント（パワハラ）",
+        "スメルハラスメント",
+        "カスタマーハラスメント（カスハラ）",
+        "ハラスメントハラスメント（ハラハラ）",
+        "マタニティハラスメント（マタハラ）",
+        "リモートハラスメント（リモハラ）",
+        "テクノロジーハラスメント（テクハラ）",
+        "セクシュアルハラスメント（セクハラ）",
+        "モラルハラスメント（モラハラ）"
+      ];
+
+      categories.forEach(key => {
+        const score = data[key] || 0;
+        const bar = `<div class='score-bar'><div class='score-bar-inner' style='width:${score}%;'></div></div>`;
+        container.innerHTML += `<div class='result-item'><strong>${key}</strong><br>${bar} <span>${score}点</span></div>`;
+      });
+    }
+
+    function backToInput() {
+      document.getElementById('page2').style.display = 'none';
+      document.getElementById('page1').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
