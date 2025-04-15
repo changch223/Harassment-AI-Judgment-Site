@@ -1,36 +1,83 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- SEO や基本設定 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ハラスメントチェック</title>
+  <meta name="description" content="AIを用いてハラスメントの有無を瞬時に判定します。会話内容や画像を解析し、パワハラ・セクハラ等を総合判定します。より良い社会の実現に向け、誰もが気軽にハラスメントをチェックできるサービスです。">
+  <title>ハラスメントチェック - AIが瞬時にジャッジ</title>
+
   <style>
+    /* ======= 全体スタイル ======= */
     body {
       font-family: Arial, sans-serif;
-      padding: 2rem;
+      margin: 0;
+      padding: 0;
       background-color: #f4f4f4;
+      color: #333;
     }
-    h1, h2 {
+
+    /* ======= タイトルや見出し部分 ======= */
+    header {
+      background-color: #fff;
       text-align: center;
+      padding: 2rem 1rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    header h1 {
+      margin: 0.5rem 0 1rem;
+      font-size: 1.8rem;
+    }
+    header h2 {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    /* ======= メインコンテンツ ======= */
+    .main-content {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      line-height: 1.6;
+    }
+
+    /* ======= フォームコンテナ ======= */
     .container {
       max-width: 600px;
-      margin: 0 auto;
-      background: white;
+      margin: 1rem auto 0;
+      background: #fff;
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input[type="file"] {
+      display: block;
+      margin-top: 0.5rem;
+    }
     textarea {
       width: 100%;
       height: 150px;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       padding: 1rem;
       font-size: 1rem;
+      box-sizing: border-box;
+      resize: vertical;
     }
-    input[type="file"] {
-      margin-top: 1rem;
-    }
+
+    /* ======= ボタン ======= */
     button {
       margin-top: 1rem;
       padding: 1rem;
@@ -42,34 +89,110 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .result-item {
-      margin-bottom: 1rem;
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
     }
+
+    /* ======= 結果表示コンテナ ======= */
+    #page2 {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .result-item {
+      margin-bottom: 1.5rem;
+    }
+
+    /* ======= スコアバー ======= */
     .score-bar {
       height: 20px;
       background-color: #ddd;
       border-radius: 5px;
       overflow: hidden;
+      margin: 0.5rem 0;
     }
     .score-bar-inner {
       height: 100%;
       background-color: #4CAF50;
     }
+
+    /* ======= ローディングスピナー ======= */
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4CAF50;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ローディングテキスト */
+    #loading {
+      text-align: center;
+      margin-top: 1rem;
+      display: none; /* 初期は非表示 */
+    }
   </style>
 </head>
 <body>
-  <!-- ====== Page 1: Upload & Input ====== -->
-  <div class="container" id="page1">
-    <h1>ハラスメントチェック</h1>
-    <p>スクリーンショット、画像や会話内容を入力してください：</p>
-    <!-- multiple で複数枚アップ可能、後端も images: List[UploadFile] 対応 -->
-    <input type="file" id="imageInput" accept="image/*" multiple><br>
-    <textarea id="textInput" placeholder="ここに会話を貼り付けてください"></textarea>
-    <button onclick="analyze()">分析開始</button>
+
+  <!-- ======= ヘッダー・タイトル ======= -->
+  <header>
+    <h1>ハラスメントチェック - AIが瞬時にジャッジ</h1>
+    <h2>ハラスメントに悩むあなたへ</h2>
+  </header>
+
+  <!-- ======= サイト説明文（SEO 対策にも貢献） ======= -->
+  <div class="main-content">
+    <p>
+      現代社会ではハラスメントが多発していますが、自分がハラスメントを受けているかどうか判断が難しい場面も多く、
+      また周囲に相談しにくい状況も少なくありません。
+    </p>
+    <p>
+      私たちは、そのような方々が気軽に、そして明確にハラスメントを判断できるサイトを開発しました。
+      このサイトでは、会話のキャプチャ画像やテキストをアップロードするだけで、
+      <strong>Googleの最先端AI</strong>がその内容を分析し、ハラスメントかどうかを瞬時にジャッジします。
+    </p>
+    <p>
+      私たちの目標は、このサイトを通じて誰もが安心して過ごせる、
+      より良い社会の実現に貢献することです。
+    </p>
   </div>
 
-  <!-- ====== Page 2: Result ====== -->
-  <div class="container" id="page2" style="display: none">
+  <!-- ======= 入力ページ (Page1) ======= -->
+  <div class="container" id="page1">
+    <h2 style="text-align:center;">画像とテキストをアップロード</h2>
+    <div class="form-group">
+      <label for="imageInput">スクリーンショットや画像：</label>
+      <input type="file" id="imageInput" accept="image/*" multiple>
+    </div>
+    <div class="form-group">
+      <label for="textInput">会話内容:</label>
+      <textarea id="textInput" placeholder="ここに会話を貼り付けてください"></textarea>
+    </div>
+    <button id="analyzeBtn" onclick="analyze()">分析開始</button>
+
+    <!-- ローディング中の表示 -->
+    <div id="loading">
+      <div class="loader"></div>
+      <span>解析中です。しばらくお待ちください...</span>
+    </div>
+  </div>
+
+  <!-- ======= 結果ページ (Page2) ======= -->
+  <div id="page2" style="display: none;">
     <h2>分析結果</h2>
     <div id="resultContainer"></div>
     <button onclick="backToInput()">戻る</button>
@@ -77,20 +200,26 @@
 
   <script>
     async function analyze() {
-      // 1) 取得ユーザー入力
+      // ローディング開始
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('analyzeBtn').disabled = true;
+
+      // 1) ユーザー入力を取得
       const text = document.getElementById('textInput').value;
-      const files = document.getElementById('imageInput').files; // 複数枚
+      const files = document.getElementById('imageInput').files;
 
       // 2) FormData に詰める
       const formData = new FormData();
       formData.append('text', text);
       for (let i = 0; i < files.length; i++) {
-        formData.append('images', files[i]); // 画像複数対応
+        formData.append('images', files[i]);
       }
 
-      // 3) fetch POST
+      // 3) fetch POST で後端に送信
       try {
-        const res = await fetch('https://your-cloud-run-url/check_harassment', {
+        // ★ 後端のURLパスを正しく設定してください。以下は一例:
+        //    '/check_harassment' を末尾に付けるなど、実際のエンドポイントに合わせる。
+        const res = await fetch('https://aiharajudge-731897587704.asia-northeast1.run.app/check_harassment', {
           method: 'POST',
           body: formData
         });
@@ -98,11 +227,15 @@
         showResult(data);
       } catch (err) {
         alert("エラーが発生しました: " + err);
+      } finally {
+        // ローディング解除
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('analyzeBtn').disabled = false;
       }
     }
 
     function showResult(data) {
-      // page1非表示, page2表示
+      // page1 を非表示, page2 を表示
       document.getElementById('page1').style.display = 'none';
       document.getElementById('page2').style.display = 'block';
 
@@ -124,7 +257,7 @@
 
       // 各キーごとにバー表示
       harassmentKeys.forEach(key => {
-        const score = data[key] || 0; // データにない場合は0
+        const score = data[key] || 0;
         const bar = `
           <div class="score-bar">
             <div class="score-bar-inner" style="width:${score}%"></div>
@@ -139,7 +272,7 @@
         `;
       });
 
-      // 5) 総合コメントを表示
+      // 総合コメントの表示
       if (data["総合コメント"]) {
         container.innerHTML += `
           <div class="result-item">
@@ -151,6 +284,7 @@
     }
 
     function backToInput() {
+      // 結果ページを非表示にして、入力ページを再度表示
       document.getElementById('page2').style.display = 'none';
       document.getElementById('page1').style.display = 'block';
     }
