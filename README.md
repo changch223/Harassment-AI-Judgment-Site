@@ -26,7 +26,7 @@ Not sure if your experience counts as harassment?
   No sign-up required. Everything is processed client-side or via a secure Gemini API proxy.
 
 - 📊 **Clear Visual Feedback**  
-  Users receive a breakdown of possible harassment type(s), severity score, and supportive next-step suggestions.
+  Users receive a breakdown of possible harassment types (s), severity score, and supportive next-step suggestions.
 
 ---
 
@@ -47,3 +47,44 @@ graph TD
   G --> C[Classify Harassment Type]
   C --> R[Generate Supportive Response]
   R --> UI[Display Scores and Suggestions]
+```
+
+## 🖼 Screenshots & Demo
+
+<div align="center">
+  <img src="assets/intro.jpg" width="400" alt="App Intro"/>
+  <br/>
+  <img src="assets/hara.gif" width="400" alt="Demo GIF"/>
+  <br/>
+  <img src="assets/workflow.jpg" width="400" alt="App Flow"/>
+</div>
+
+---
+
+## 🧠 How It Works
+
+1. Users upload a conversation screenshot or enter message text.  
+2. The system sends content to Gemini API for real-time analysis.  
+3. AI classifies the message into structured harassment types.  
+4. Output includes explanation, suggestions, and helpful resources.
+
+---
+
+## 🌍 Languages
+
+- 🈚 Current: Japanese-only  
+- 🌐 In Progress: English, Traditional Chinese
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 🙋 Author
+
+Created by **[Chia-Wei Chang](https://github.com/changch223)**  
+Feedback and collaboration are welcome!  
+Feel free to fork or raise issues.
