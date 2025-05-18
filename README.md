@@ -84,6 +84,14 @@ MIT License
 
 ---
 
+## 🙋 Author
+
+Created by **Chia-Wei Chang**  
+Feedback and improvement suggestions are always welcome!  
+Feel free to fork the repo or open an issue anytime.
+
+---
+
 # 🚨 Harassment AI Judgment – ハラスメントAI判定サイト
 
 AIを活用して会話のスクリーンショットやテキストからハラスメントの可能性を分類・可視化する、匿名・無料のWebサービスです。
