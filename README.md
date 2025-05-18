@@ -52,11 +52,11 @@ graph TD
 ## 🖼 Screenshots & Demo
 
 <div align="center">
-  <img src="assets/intro.jpg" width="400" alt="App Intro"/>
+  <img src="assets/intro.jpg" width="450" alt="App Intro"/>
   <br/>
-  <img src="assets/workflow.jpg" width="400" alt="App Flow"/>
+  <img src="assets/workflow.jpg" width="450" alt="App Flow"/>
   <br/>
-  <img src="assets/hara.gif" width="400" alt="Demo GIF"/>
+  <img src="assets/hara.gif" width="450" alt="Demo GIF"/>
 </div>
 
 ---
