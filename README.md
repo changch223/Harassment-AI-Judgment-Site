@@ -54,9 +54,9 @@ graph TD
 <div align="center">
   <img src="assets/intro.jpg" width="400" alt="App Intro"/>
   <br/>
-  <img src="assets/hara.gif" width="400" alt="Demo GIF"/>
-  <br/>
   <img src="assets/workflow.jpg" width="400" alt="App Flow"/>
+  <br/>
+  <img src="assets/hara.gif" width="400" alt="Demo GIF"/>
 </div>
 
 ---
