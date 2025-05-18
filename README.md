@@ -46,7 +46,7 @@ graph TD
   U[User Uploads Text or Screenshot] --> G[Gemini API Analysis]
   G --> C[Classify Harassment Type]
   C --> R[Generate Supportive Response]
-  R --> UI[Display Scores and Suggestions]
+  R --> UI[Display Scores and Suggestions] 
 ```
 <div align="center">
   <img src="assets/workflow.jpg" width="450" alt="App Flow"/>
