@@ -48,6 +48,9 @@ graph TD
   C --> R[Generate Supportive Response]
   R --> UI[Display Scores and Suggestions]
 ```
+<div align="center">
+  <img src="assets/workflow.jpg" width="450" alt="App Flow"/>
+</div>
 
 ## 🖼 Screenshots & Demo
 
