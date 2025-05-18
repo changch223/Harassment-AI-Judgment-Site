@@ -132,8 +132,47 @@ graph TD
   G --> C[ハラスメントの種類を分類]
   C --> R[コメント付きアドバイスを生成]
   R --> UI[スコアやサポート情報を表示]
+```
 
+## 🖼 デモ・画面サンプル
+<div align="center">
+  <img src="assets/workflow.jpg" width="450" alt="App Flow"/>
+</div>
 
-Created by **[Chia-Wei Chang](https://github.com/changch223)**  
-Feedback and collaboration are welcome!  
-Feel free to fork or raise issues.
+## 🖼 Screenshots & Demo
+
+<div align="center">
+  <img src="assets/intro.jpg" width="450" alt="App Intro"/>
+  <br/>
+  <img src="assets/hara.gif" width="450" alt="Demo GIF"/>
+</div>
+
+---
+
+## 🧠 使い方の流れ
+
+1. 会話のスクショ、またはテキストを入力  
+2. Gemini APIでリアルタイム解析  
+3. ハラスメント種類を構造化して分類  
+4. 判定結果・アドバイス・スコアを表示
+
+---
+
+## 🌍 言語対応
+
+- 🈚 現在：日本語のみ対応  
+- 🌐 今後：英語・繁體中文に対応予定
+
+---
+
+## 📄 ライセンス
+
+MIT License
+
+---
+
+## 🙋‍♂️ 開発者
+
+Created by **Chia-Wei Chang**  
+フィードバックや改善提案は歓迎します！  
+Fork、Issue どちらでもお気軽にご連絡ください。
