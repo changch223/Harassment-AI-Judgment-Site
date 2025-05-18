@@ -50,6 +50,7 @@ graph TD
 ```
 
 ## 🖼 Screenshots & Demo
+![Workflow](assets/workflow.jpg)
 
 <div align="center">
   <img src="assets/intro.jpg" width="400" alt="App Intro"/>
