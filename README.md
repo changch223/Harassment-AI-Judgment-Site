@@ -19,7 +19,7 @@ Not sure if your experience counts as harassment?
 
 ## ✨ Service Features
 
-- ⚖**Instant Harassment Classification**  
+- **Instant Harassment Classification**  
   Classifies types like **power harassment**, **moral harassment**, and **sexual harassment** using Japan’s Ministry of Health, Labour and Welfare guidelines.
 
 - **Confidential and Anonymous**  
