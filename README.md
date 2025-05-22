@@ -3,8 +3,8 @@
 An AI-powered harassment classification tool built with Gemini API & multi-modal input support.  
 Designed for users in Japan seeking safe, anonymous, and expert-informed AI support.
 
-🌐 **Live Demo**: [aiharajudge.site](https://aiharajudge.site/)  
-🧠 **Backend**: [aiharajudge-gemini-api-key-proxy](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)
+**Live Demo**: [aiharajudge.site](https://aiharajudge.site/)  
+**Backend**: [aiharajudge-gemini-api-key-proxy](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)
 
 ---
 
@@ -19,23 +19,23 @@ Not sure if your experience counts as harassment?
 
 ## ✨ Service Features
 
-- ⚖️ **Instant Harassment Classification**  
+- ⚖**Instant Harassment Classification**  
   Classifies types like **power harassment**, **moral harassment**, and **sexual harassment** using Japan’s Ministry of Health, Labour and Welfare guidelines.
 
-- 🕊 **Confidential and Anonymous**  
+- **Confidential and Anonymous**  
   No sign-up required. Everything is processed client-side or via a secure Gemini API proxy.
 
-- 📊 **Clear Visual Feedback**  
+- **Clear Visual Feedback**  
   Users receive a breakdown of possible harassment types (s), severity score, and supportive next-step suggestions.
 
 ---
 
 ## 🔧 Tech Stack
 
-- 🔍 Frontend: HTML + JS (Static hosting via ConoHa Wing)
-- 🤖 AI Model: Google Gemini 1.5 Pro
-- ☁️ Backend: FastAPI proxy to Gemini ([repo](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)) deployed to Google Cloud Run
-- 🔐 Secure Gemini Key Proxy with CORS and JSON schema response control
+- Frontend: HTML + JS (Static hosting via ConoHa Wing)
+- AI Model: Google Gemini 1.5 Pro
+- Backend: FastAPI proxy to Gemini ([repo](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)) deployed to Google Cloud Run
+- Secure Gemini Key Proxy with CORS and JSON schema response control
 
 ---
 
@@ -73,8 +73,8 @@ graph TD
 
 ## 🌍 Languages
 
-- 🈚 Current: Japanese-only  
-- 🌐 In Progress: English, Traditional Chinese
+- Current: Japanese-only  
+- In Progress: English, Traditional Chinese
 
 ---
 
@@ -96,8 +96,8 @@ Feel free to fork the repo or open an issue anytime.
 
 AIを活用して会話のスクリーンショットやテキストからハラスメントの可能性を分類・可視化する、匿名・無料のWebサービスです。
 
-🌐 **公開中サイト**: [aiharajudge.site](https://aiharajudge.site/)  
-🧠 **バックエンド**: [aiharajudge-gemini-api-key-proxy](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)
+**公開中サイト**: [aiharajudge.site](https://aiharajudge.site/)  
+**バックエンド**: [aiharajudge-gemini-api-key-proxy](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)
 
 ---
 
@@ -110,15 +110,15 @@ AIを活用して会話のスクリーンショットやテキストからハラ
 
 ---
 
-## ✨ 主な特徴
+## 主な特徴
 
-- ⚖️ **即時ハラスメント分類**  
+- **即時ハラスメント分類**  
   パワハラ・モラハラ・セクハラなど、厚生労働省のガイドラインに沿った9分類に自動マッピング。
 
-- 🕊 **匿名・非ログインで安心利用**  
+- **匿名・非ログインで安心利用**  
   ユーザー情報を取得せず、入力データはAI処理後に自動削除。
 
-- 📊 **視覚的でわかりやすい結果表示**  
+- **視覚的でわかりやすい結果表示**  
   判定された種類、深刻度スコア、アドバイスが表示され、今後の行動に役立ちます。
 
 ---
@@ -168,8 +168,8 @@ graph TD
 
 ## 🌍 言語対応
 
-- 🈚 現在：日本語のみ対応  
-- 🌐 今後：英語・繁體中文に対応予定
+- 現在：日本語のみ対応  
+- 今後：英語・繁體中文に対応予定
 
 ---
 
