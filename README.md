@@ -3,7 +3,7 @@
 An AI-powered harassment classification tool built with Gemini API & multi-modal input support.  
 Designed for users in Japan seeking safe, anonymous, and expert-informed AI support.
 
-**Live Demo**: [aiharajudge.site](https://aiharajudge.site/)  
+**Live Demo**: [changch223.github.io/Harassment-AI-Judgment-Site](https://changch223.github.io/Harassment-AI-Judgment-Site/)  
 **Backend**: [aiharajudge-gemini-api-key-proxy](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)
 
 ---
@@ -32,7 +32,7 @@ Not sure if your experience counts as harassment?
 
 ## 🔧 Tech Stack
 
-- Frontend: HTML + JS (Static hosting via ConoHa Wing)
+- Frontend: HTML + JS (Static hosting via GitHub Pages)
 - AI Model: Google Gemini 1.5 Pro
 - Backend: FastAPI proxy to Gemini ([repo](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)) deployed to Google Cloud Run
 - Secure Gemini Key Proxy with CORS and JSON schema response control
@@ -96,7 +96,7 @@ Feel free to fork the repo or open an issue anytime.
 
 AIを活用して会話のスクリーンショットやテキストからハラスメントの可能性を分類・可視化する、匿名・無料のWebサービスです。
 
-**公開中サイト**: [aiharajudge.site](https://aiharajudge.site/)  
+**公開中サイト**: [changch223.github.io/Harassment-AI-Judgment-Site](https://changch223.github.io/Harassment-AI-Judgment-Site/)  
 **バックエンド**: [aiharajudge-gemini-api-key-proxy](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)
 
 ---
@@ -125,7 +125,7 @@ AIを活用して会話のスクリーンショットやテキストからハラ
 
 ## 🔧 技術構成
 
-- フロントエンド：HTML + JS（ConoHa Wing でホスティング）  
+- フロントエンド：HTML + JS（GitHub Pages でホスティング）  
 - AIモデル：Google Gemini 1.5 Pro  
 - バックエンド：FastAPI + Gemini API Proxy（[リポジトリ](https://github.com/changch223/aiharajudge-gemini-api-key-proxy)）  
 - セキュリティ：CORS + Schema付き構造化レスポンス
