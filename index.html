@@ -330,7 +330,24 @@
           },
           body: formData
         });
+        // エラー応答をそのまま結果画面に出すと全項目 0点 に見えるので、ここで止める
+        if (!res.ok) {
+          if (res.status === 429) {
+            alert("ただいまアクセスが集中しています。しばらく時間をおいてからもう一度お試しください。");
+          } else if (res.status === 413) {
+            alert("画像または文章が大きすぎます。画像は1枚10MB以下、文章は2万文字以内にしてください。");
+          } else if (res.status === 400 || res.status === 422) {
+            alert("入力内容を確認してください。会話内容の入力が必要です。画像は JPG・PNG などの形式に対応しています。");
+          } else {
+            alert("ただいまAI判定サーバーに接続できません。しばらく時間をおいてからもう一度お試しください。");
+          }
+          return;
+        }
         const data = await res.json();
+        if (!data || data.error) {
+          alert("AIが判定結果を作成できませんでした。もう一度お試しください。");
+          return;
+        }
         showResult(data);
       } catch (err) {
         alert("エラーが発生しました: " + err);
